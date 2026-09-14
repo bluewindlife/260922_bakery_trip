@@ -20,18 +20,40 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    timeout-minutes: 12
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Pages
+      - name: Verify source integrity
+        run: node scripts/verify-source.mjs
+
+      - name: Configure Pages
         uses: actions/configure-pages@v5
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.'
+          path: "."
 
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Install browser verifier
+        run: npm install --no-save --package-lock=false --ignore-scripts puppeteer-core@24.16.0
+
+      - name: Verify the published page in Chrome
+        env:
+          PAGE_URL: ${{ steps.deployment.outputs.page_url }}
+          EXPECTED_VERSION: v0.5.0
+        run: node scripts/verify-pages.mjs
+
+      - name: Upload browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pages-browser-check
+          path: verify-output
+          if-no-files-found: ignore
+          retention-days: 14
