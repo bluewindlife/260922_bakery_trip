@@ -119,7 +119,7 @@ try {
       misleadingPumpkinPlacement: figureText.concat(buyListText).some((text) => text.includes('かぼちゃマスカルポーネ')),
       wakanPhotoMatches: [...document.querySelectorAll('[data-shop="wakan"] figure')].some((figure) => figure.querySelector('img')?.alt.includes('アールグレイロイヤルミルクティー') && figure.innerText.includes('アールグレイロイヤルミルクティー')),
       commenPhotoMatches: [...document.querySelectorAll('[data-shop="commen"] figure')].some((figure) => figure.querySelector('img')?.alt.includes('たまご明太サンド') && figure.innerText.includes('たまご明太サンド')),
-      maruPhotoMatches: [...document.querySelectorAll('[data-shop="maru"] figure')].some((figure) => figure.querySelector('img')?.alt.includes('プレーン') && figure.innerText.includes('プレーン')),
+      maruPhotoMatches: [...document.querySelectorAll('[data-shop="maru"] figure')].some((figure) => figure.querySelector('img')?.alt.includes('ベーグルが並ぶ店頭') && figure.innerText.includes('ラインナップ')),
       homeReturnPresent: bodyText.includes('自宅へ') && bodyText.includes('17:30–19:30'),
       horizontalOverflow: document.documentElement.scrollWidth - window.innerWidth,
       invalidLinks,
